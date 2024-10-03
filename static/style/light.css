@@ -1,0 +1,48 @@
+:root {
+    --theme: light;
+    --white: #fff;
+    --black: #303030;
+    --gray: #fafafa;
+
+    --primary-color: #91acbd;
+    --second-color: #f3eee6;
+    --primary-bg-color: #f2f1ed;
+    --second-bg-color: #faf9f5;
+    --hover-color: #f3f3f3;
+    --border-color: 1px solid #dedede;
+    --text-color: #303030;
+    --window-width: 90vw;
+    --window-height: 90vh;
+    --shadow: 50px 50px 100px 10px rgba(0, 0, 0, 0.1);
+    --card-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.05);
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: transparent;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-track-piece {
+    width: 24px;
+    background-color: transparent;
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:vertical {
+    width: 24px;
+    height: 24px;
+    background: rgba(214, 212, 212, 0.5);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:horizontal {
+    width: 24px;
+    height: 24px;
+    background: rgba(214, 212, 212, 0.5);
+    border-radius: 8px;
+}
+::-webkit-scrollbar-button {
+    display: none;
+}
+::-webkit-scrollbar-corner {
+    display: none;
+}

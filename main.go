@@ -1,9 +1,6 @@
 package main
 
 import (
-	"github.com/gin-contrib/cors"
-	"github.com/gin-gonic/gin"
-	"go.uber.org/zap"
 	"log"
 	"net/http"
 	"simple-one-api/pkg/apis"
@@ -12,6 +9,10 @@ import (
 	"simple-one-api/pkg/mywebui"
 	"simple-one-api/pkg/translation"
 	"strings"
+
+	"github.com/gin-contrib/cors"
+	"github.com/gin-gonic/gin"
+	"go.uber.org/zap"
 
 	//"log"
 	"os"
@@ -72,11 +73,7 @@ func main() {
 		// 动态路由处理所有html文件
 		r.GET("/:filename", func(c *gin.Context) {
 			filename := c.Param("filename")
-			if strings.HasSuffix(filename, ".html") {
-				c.File("./static/" + filename)
-			} else {
-				c.JSON(http.StatusNotFound, gin.H{"error": "File not found"})
-			}
+			c.File("./static/" + filename) // 直接返回文件，无需后缀检查
 		})
 	}
 	// 添加POST请求方法处理
