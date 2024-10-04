@@ -24,10 +24,6 @@
                 </div>
                 <div class="models">
                     <div class="check-list" id="model-items">
-                        <li>
-                            <input type="checkbox" id="ERNIE-Lite-8K" name="model" value="ERNIE-Lite-8K">
-                            <label for="ERNIE-Lite-8K">ERNIE-Lite-8K</label>
-                        </li>
                     </div>
                 </div>
             </div>
@@ -42,8 +38,8 @@
                 <div id="chat-input">
                     <div id="error-message"></div>
                     <div class="chat-imput-panel">
-                        <textarea id="prompt" class="message" name="prompt" placeholder="Enter 换行，Shift + Enter 发送"
-                            rows="3" style="font-size: 14px;"></textarea>
+                        <textarea id="prompt" class="message" name="prompt" placeholder="Enter Ctrl + Enter 发送" rows="3"
+                            style="font-size: 14px;"></textarea>
                         <button id="submit-button">
                             <span>发送</span>
                         </button>
@@ -84,6 +80,7 @@
 
             const submitBtn = document.getElementById('submit-button');
             const outputPanel = document.getElementById('chat-output');
+            const promptInput = document.getElementById('prompt');
 
             const returnMainButton = document.getElementById('return-main-button');
             const returnNavButton = document.getElementById('return-nav-button');
@@ -101,7 +98,8 @@
 
             // WebSocket 连接建立函数
             function setupWebSocket() {
-                websocket = new WebSocket('ws://' + window.location.host + '/multimodelcall');
+                const protocol = window.location.protocol === 'https:' ? 'wss' : 'ws';
+                websocket = new WebSocket(`${protocol}://${window.location.host}/multimodelcall`);
 
                 websocket.onopen = function () {
                     console.log('WebSocket connection opened');
@@ -110,7 +108,7 @@
                 };
 
                 websocket.onmessage = function (event) {
-                    console.log('Message from server ', event.data);
+                    // console.log('Message from server ', event.data);
                     const data = JSON.parse(event.data);
                     handleStreamData(data);
                 };
@@ -188,11 +186,11 @@
                     return;
                 }
 
-                if (!document.getElementById('prompt').value) {
+                const prompt = promptInput.value
+
+                if (!prompt) {
                     return;
                 }
-
-                const prompt = document.getElementById('prompt').value
 
                 const formData = {
                     prompt,
@@ -205,6 +203,7 @@
 
                 if (websocket.readyState === WebSocket.OPEN) {
                     websocket.send(JSON.stringify(formData));
+                    promptInput.value = '';
                 } else {
                     console.error('WebSocket is not open. Ready state: ' + websocket.readyState);
                 }
@@ -212,6 +211,14 @@
 
             submitBtn.addEventListener('click', function () {
                 setupWebSocket();
+            });
+
+            document.getElementById('prompt').addEventListener('keydown', function (event) {
+                // 检查是否是Ctrl+Enter组合键
+                if (event.ctrlKey && event.keyCode === 13) { // keyCode 13 代表 Enter 键
+                    event.preventDefault();
+                    setupWebSocket();
+                }
             });
 
             function handleStreamData(data) {
