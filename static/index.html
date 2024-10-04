@@ -12,13 +12,18 @@
 <body>
     <div class="page-warpper">
         <div class="page-content">
-            <div class="sidebar">
-                <div class="title">
-                    <h2>模型列表</h2>
-                    <p id="selectedModelLength">请选择进行对话测试的模型</p>
+            <div class="sidebar show">
+                <div class="title-bar">
+                    <div class="title">
+                        <h2>模型列表</h2>
+                        <p id="selected-model-length">请选择进行对话测试的模型</p>
+                    </div>
+                    <button id="return-main-button">
+                        <span>X</span>
+                    </button>
                 </div>
                 <div class="models">
-                    <div class="check-list" id="modelItems">
+                    <div class="check-list" id="model-items">
                         <li>
                             <input type="checkbox" id="ERNIE-Lite-8K" name="model" value="ERNIE-Lite-8K">
                             <label for="ERNIE-Lite-8K">ERNIE-Lite-8K</label>
@@ -28,6 +33,9 @@
             </div>
             <div class="main">
                 <div class="chat-header">
+                    <button id="return-nav-button">
+                        <span>目录</span>
+                    </button>
                     <p id="selectedModels">对话测试</p>
                 </div>
                 <div id="chat-output"></div>
@@ -37,7 +45,7 @@
                         <textarea id="prompt" class="message" name="prompt" placeholder="Enter 换行，Shift + Enter 发送"
                             rows="3" style="font-size: 14px;"></textarea>
                         <button id="submit-button">
-                            <span aria-label="发送">发送</span>
+                            <span>发送</span>
                         </button>
 
                     </div>
@@ -71,11 +79,24 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            const modelItems = document.getElementById('modelItems');
-            const selectedModelLength = document.getElementById('selectedModelLength');
+            const modelItems = document.getElementById('model-items');
+            const selectedModelLength = document.getElementById('selected-model-length');
 
             const submitBtn = document.getElementById('submit-button');
             const outputPanel = document.getElementById('chat-output');
+
+            const returnMainButton = document.getElementById('return-main-button');
+            const returnNavButton = document.getElementById('return-nav-button');
+            const sidebar = document.querySelector('.sidebar');
+
+            returnMainButton.onclick = () => {
+                sidebar.classList.remove('show');
+            }
+
+            returnNavButton.onclick = () => {
+                sidebar.classList.add('show');
+            }
+
             let websocket;
 
             // WebSocket 连接建立函数
