@@ -5,7 +5,6 @@ body {
     user-select: none;
     touch-action: pan-x pan-y;
     overflow: hidden;
-    min-height: 100vh;
 }
 
 button {
@@ -27,9 +26,9 @@ button:hover {
     filter: brightness(0.9);
 }
 
-.page-warpper {
+.page-wrapper {
     width: 100vw;
-    height: 100vh;
+    height: 100dvh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -37,8 +36,8 @@ button:hover {
 
 .page-content {
     max-width: 1152px;
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     border: var(--border-color);
     color: var(--text-color);
     display: flex;
@@ -54,7 +53,7 @@ button:hover {
     flex-direction: column;
     background-color: var(--second-color);
     box-shadow: inset -2px 0 2px 0 rgba(0, 0, 0, 0.05);
-    transition: all .3s ease;
+    transition: all 0.3s ease;
     z-index: 10;
 }
 
@@ -147,13 +146,13 @@ button:hover {
 }
 
 .main .chat-header p {
+    max-width: 50%;
     font-size: 20px;
     font-weight: bolder;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     display: block;
-    max-width: 50vw;
 }
 
 .main #chat-output {
@@ -240,17 +239,18 @@ button:hover {
         width: 100vw;
     }
 
-    .sidebar .title-bar button, .main .chat-header button {
+    .sidebar .title-bar button,
+    .main .chat-header button {
         display: block;
     }
 
     .main {
-        width: 100vw;
+        width: 100%;
     }
 }
 
 @media screen and (min-width: 640px) and (max-width: 1280px) {
-    .page-warpper {
+    .page-wrapper {
         background-color: var(--primary-bg-color);
     }
     .page-content {
@@ -262,7 +262,7 @@ button:hover {
 }
 
 @media screen and (min-width: 1280px) {
-    .page-warpper {
+    .page-wrapper {
         background-color: var(--primary-bg-color);
     }
     .page-content {
